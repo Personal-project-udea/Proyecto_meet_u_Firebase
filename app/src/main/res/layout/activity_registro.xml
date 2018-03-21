@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.martinez.steven.practica_2.RegistroActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textStyle="italic"
+            android:textSize="25dp"
+            android:textColor="@color/black"
+            android:text="@string/Info"
+            android:maxLines="1"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/user"
+            android:id="@+id/erUser"
+            android:maxLines="1"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/Email1"
+            android:id="@+id/erEmail1"
+            android:maxLines="1"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/Email2"
+            android:id="@+id/erEmail2"
+            android:maxLines="1"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/passw1"
+            android:inputType="textPassword"
+            android:id="@+id/erPass1"
+            android:maxLines="1"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="@string/passw2"
+            android:inputType="textPassword"
+            android:id="@+id/erPass2"
+            android:maxLines="1"
+
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button"
+                android:layout_margin="10dp"
+                android:scaleX="0.6"
+                android:scaleY="0.6"
+                android:onClick="OnClickButton_Registrar"
+                android:id="@+id/bRegistrar"
+
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/Registrar"
+                android:textSize="20dp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

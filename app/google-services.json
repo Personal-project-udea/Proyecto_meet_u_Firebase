@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "680660073820",
+    "firebase_url": "https://meetu-2d168.firebaseio.com",
+    "project_id": "meetu-2d168",
+    "storage_bucket": "meetu-2d168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680660073820:android:01a2a2eff439d8a6",
+        "android_client_info": {
+          "package_name": "com.martinez.steven.practica_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680660073820-dk13hp28o0pq0a0u7oph8nn02miid0p0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martinez.steven.practica_2",
+            "certificate_hash": "4377b44e3eb0297513e90af06df5d5a39d87efba"
+          }
+        },
+        {
+          "client_id": "680660073820-rpo69ge43ps1i497365ha0qti77meerc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlv-y0GiQrkS3s8Zu8-suz_RKwL7UoB98"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680660073820-rpo69ge43ps1i497365ha0qti77meerc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Principal</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="Aceptar">Aceptar</string>
+    <string name="Registro">Registrate</string>
+    <string name="Info">Ingrese los datos para el registro</string>
+    <string name="Email1">Correo electrónico</string>
+    <string name="Email2">Confirme correo electrónico</string>
+    <string name="passw1">Contraseña</string>
+    <string name="passw2">Confirme contraseña</string>
+    <string name="Registrar">Registrar</string>
+    <string name="Perfil">Mi Perfil</string>
+    <string name="Logout">Cerrar Sesión</string>
+    <string name="Principal">Principal</string>
+</resources>
