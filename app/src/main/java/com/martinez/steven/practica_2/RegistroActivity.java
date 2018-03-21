@@ -75,7 +75,7 @@ public class RegistroActivity extends AppCompatActivity {
                     intent.putExtra("password", pass1);
                     intent.putExtra("correo", email1);
 
-                    crearCuenta(email1,pass1);
+                    crearCuenta(email1, pass1);
 
                     setResult(RESULT_OK, intent);
                     //startActivity(intent);
@@ -90,9 +90,9 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-    private void crearCuenta(String email1, String pass1) {
-        firebaseAuth.createUserWithEmailAndPassword(email1, pass1).
-                addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    private void crearCuenta(String email, String pass) {
+        firebaseAuth.createUserWithEmailAndPassword(email, pass).
+                addOnCompleteListener(RegistroActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){

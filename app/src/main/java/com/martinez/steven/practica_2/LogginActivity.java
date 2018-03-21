@@ -1,6 +1,7 @@
 package com.martinez.steven.practica_2;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LogginActivity extends AppCompatActivity {
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     EditText eUser, ePassword;
     TextView tRegistro;
@@ -30,19 +40,36 @@ public class LogginActivity extends AppCompatActivity {
         bLoggin = findViewById(R.id.bLoggin);
         extras = getIntent().getExtras();
 
-        if (extras != null){
+        /*if (extras != null){
             user = extras.getString("usuario");
             pwd = extras.getString("password");
             email = extras.getString("correo");
-        }
+        }*/
 
+        inicializar();
+
+    }
+
+    private void inicializar() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                if(firebaseUser != null){
+                    Log.d("FirebaseUser", "Usuario Logeado: "+firebaseUser.getEmail());
+                }else{
+                    Log.d("FirebaseUser", "No hay usuario logeado ");
+                }
+            }
+        };
     }
 
     public void OnClickButton_Loggin(View view) {
         int id  = view.getId();
 
         if (id == R.id.bLoggin){
-            if (!ePassword.getText().toString().isEmpty() && !eUser.getText().toString().isEmpty()){
+            /*if (!ePassword.getText().toString().isEmpty() && !eUser.getText().toString().isEmpty()){
                 euser = eUser.getText().toString();
                 epwd = ePassword.getText().toString();
                 Log.d("Variables", euser + epwd + user + email + pwd);
@@ -64,7 +91,8 @@ public class LogginActivity extends AppCompatActivity {
                 }
             }else{
                 Toast.makeText(LogginActivity.this, "Llene los campos", Toast.LENGTH_SHORT).show();
-            }
+            }*/
+            iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
         }
     }
 
@@ -91,5 +119,24 @@ public class LogginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    //coment
+
+    private void iniciarsesion(String email, String pass) {
+        firebaseAuth.signInWithEmailAndPassword(email, pass).
+                addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            goMainActivity();
+                        } else {
+                            Toast.makeText(LogginActivity.this, "Error al iniciar", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void goMainActivity(){
+        Intent i = new Intent(LogginActivity.this, PirncipalActivity.class);
+        startActivity(i);
+        finish();
+    }
 }
