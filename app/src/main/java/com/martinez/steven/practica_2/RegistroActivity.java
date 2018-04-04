@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -20,6 +23,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+
 
 
     EditText erUser, erEmail1, erEmail2, erPass1, erPass2;
@@ -54,6 +58,8 @@ public class RegistroActivity extends AppCompatActivity {
                 }
             }
         };
+
+
     }
 
     public void OnClickButton_Registrar(View view) {
@@ -70,14 +76,14 @@ public class RegistroActivity extends AppCompatActivity {
                 user = erUser.getText().toString();
 
                 if (email1.equals(email2) && pass1.equals(pass2)){
-                    Intent intent = new Intent();
+                    /*Intent intent = new Intent();
                     intent.putExtra("usuario", user);
                     intent.putExtra("password", pass1);
-                    intent.putExtra("correo", email1);
+                    intent.putExtra("correo", email1);*/
 
                     crearCuenta(email1, pass1);
 
-                    setResult(RESULT_OK, intent);
+                    //setResult(RESULT_OK, intent);
                     //startActivity(intent);
                     Toast.makeText(RegistroActivity.this, "Registro completo", Toast.LENGTH_SHORT).show();
                     finish();

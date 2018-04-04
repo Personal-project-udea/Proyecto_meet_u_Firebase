@@ -11,16 +11,30 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LogginActivity extends AppCompatActivity {
+
+public class LogginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+    private GoogleApiClient googleApiClient;
+
+    private SignInButton btnSingInGoogle;
+    int LOGIN_CON_GOOGLE = 1;
+
 
     EditText eUser, ePassword;
     TextView tRegistro;
@@ -39,14 +53,11 @@ public class LogginActivity extends AppCompatActivity {
         tRegistro = findViewById(R.id.tRegisto);
         bLoggin = findViewById(R.id.bLoggin);
         extras = getIntent().getExtras();
-
-        /*if (extras != null){
-            user = extras.getString("usuario");
-            pwd = extras.getString("password");
-            email = extras.getString("correo");
-        }*/
+        btnSingInGoogle = findViewById(R.id.btnSingInGoogle);
 
         inicializar();
+
+
 
     }
 
@@ -57,41 +68,38 @@ public class LogginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
+                    Log.d("FirebaseUser", "Usuario Logeado: "+firebaseUser.getDisplayName());
                     Log.d("FirebaseUser", "Usuario Logeado: "+firebaseUser.getEmail());
                 }else{
                     Log.d("FirebaseUser", "No hay usuario logeado ");
                 }
             }
         };
+
+        //Iniciar cuenta de google
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).
+                requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
+
+        googleApiClient  = new GoogleApiClient.Builder(this).
+                enableAutoManage(this, this).
+                addApi(Auth.GOOGLE_SIGN_IN_API, gso).
+                build();
+
+        btnSingInGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+                startActivityForResult(i, LOGIN_CON_GOOGLE);
+            }
+        });
+
     }
 
     public void OnClickButton_Loggin(View view) {
         int id  = view.getId();
 
         if (id == R.id.bLoggin){
-            /*if (!ePassword.getText().toString().isEmpty() && !eUser.getText().toString().isEmpty()){
-                euser = eUser.getText().toString();
-                epwd = ePassword.getText().toString();
-                Log.d("Variables", euser + epwd + user + email + pwd);
-                if (euser.equals(user) || euser.equals(email)){
-                    if (epwd.equals(pwd)) {
-                        // CAMBIANDO DEL LOGGIN AL PERFIL TRAS REALIZAR EL LOGGIN
-                        Intent intent = new Intent(LogginActivity.this, PirncipalActivity.class);
-                        intent.putExtra("usuario", user);
-                        intent.putExtra("password", pwd);
-                        intent.putExtra("correo", email);
-                        //startActivityForResult(intent, 0010);
-                        startActivity(intent);
-                        finish();
-                    }
-                }else{
-                    Toast.makeText(LogginActivity.this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-                    eUser.setText("");
-                    ePassword.setText("");
-                }
-            }else{
-                Toast.makeText(LogginActivity.this, "Llene los campos", Toast.LENGTH_SHORT).show();
-            }*/
+
             iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
         }
     }
@@ -101,8 +109,8 @@ public class LogginActivity extends AppCompatActivity {
         if (id  == R.id.tRegisto){
             // CAMBIANDO DEL LOGGIN AL REGISTRO CUANDO NO SE HA REGISTRADO
             Intent intent = new Intent(LogginActivity.this, RegistroActivity.class);
-            startActivityForResult(intent, 1000);
-            //finish();
+            startActivity(intent);
+
 
         }
 
@@ -110,13 +118,12 @@ public class LogginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1000 && resultCode == RESULT_OK){
-            user = data.getExtras().getString("usuario");
-            pwd = data.getExtras().getString("password");
-            email = data.getExtras().getString("correo");
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOGIN_CON_GOOGLE) {
+            GoogleSignInResult googleSingInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            singInGoogle(googleSingInResult);
         }
 
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
@@ -127,6 +134,7 @@ public class LogginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             goMainActivity();
+                            Toast.makeText(LogginActivity.this, "Inicio correcto", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(LogginActivity.this, "Error al iniciar", Toast.LENGTH_SHORT).show();
                         }
@@ -134,9 +142,45 @@ public class LogginActivity extends AppCompatActivity {
                 });
     }
 
+    private void singInGoogle (GoogleSignInResult googleSingInResult){
+
+        if(googleSingInResult.isSuccess()){
+            AuthCredential authCredential = GoogleAuthProvider.getCredential(
+                    googleSingInResult.getSignInAccount().getIdToken(), null);
+            firebaseAuth.signInWithCredential(authCredential).addOnCompleteListener(this,
+                    new OnCompleteListener<AuthResult>(){
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    goMainActivity();
+                }
+            });
+        }else {
+            Toast.makeText(LogginActivity.this, "Autenticación con google no exitosa",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void goMainActivity(){
         Intent i = new Intent(LogginActivity.this, PirncipalActivity.class);
         startActivity(i);
         finish();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        firebaseAuth.removeAuthStateListener(authStateListener);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
 }
+
