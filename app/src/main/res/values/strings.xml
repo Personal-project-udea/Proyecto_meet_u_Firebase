@@ -13,4 +13,7 @@
     <string name="Perfil">Mi Perfil</string>
     <string name="Logout">Cerrar Sesión</string>
     <string name="Principal">Principal</string>
+
+    <string name="facebook_app_id">164463184272210</string>
+    <string name="fb_login_protocol_scheme">fb164463184272210</string>
 </resources>
