@@ -1,4 +1,7 @@
 <resources>
+    <string name="facebook_app_id">992508354240026</string>
+    <string name="fb_login_protocol_scheme">fb992508354240026</string>
+
     <string name="app_name">Principal</string>
     <string name="user">Usuario</string>
     <string name="password">Contraseña</string>
@@ -13,4 +16,5 @@
     <string name="Perfil">Mi Perfil</string>
     <string name="Logout">Cerrar Sesión</string>
     <string name="Principal">Principal</string>
+    <string name="title_activity_prueba">PruebaActivity</string>
 </resources>
