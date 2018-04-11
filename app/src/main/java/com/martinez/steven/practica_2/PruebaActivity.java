@@ -36,6 +36,6 @@ public class PruebaActivity extends AppCompatActivity {
                 eCorreo.getText().toString(),
                  "url Foto");
 
-        databaseReference.child("Usuaris").child(usuarios.getId()).setValue(usuarios);
+        databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
     }
 }
