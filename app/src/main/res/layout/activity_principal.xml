@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.martinez.steven.practica_2.PirncipalActivity"
+    tools:context="com.martinez.steven.practica_2.PrincipalActivity"
     android:orientation="vertical">
 
     <TextView

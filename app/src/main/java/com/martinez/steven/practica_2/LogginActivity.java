@@ -4,8 +4,6 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -17,6 +15,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -34,7 +33,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,8 +56,8 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
 
     EditText eUser, ePassword;
-    TextView tRegistro;
-    ImageButton bLoggin;
+    TextView tError;
+    Button bRegistro, bLoggin;
     String user = "", pwd = "", email = "";
     Bundle extras;
     String epwd = "", euser = "";
@@ -74,7 +72,8 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
         eUser = findViewById(R.id.eUser);
         ePassword = findViewById(R.id.ePassword);
-        tRegistro = findViewById(R.id.tRegisto);
+        tError = findViewById(R.id.tError);
+        bRegistro = findViewById(R.id.bRegisto);
         bLoggin = findViewById(R.id.bLoggin);
         extras = getIntent().getExtras();
 
@@ -182,23 +181,22 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
     public void OnClickButton_Loggin(View view) {
         int id  = view.getId();
-
         if (id == R.id.bLoggin){
-
-            iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
+            if (eUser.getText().toString().equals("")||ePassword.getText().toString().equals("")){
+                tError.setText("Ingrese correo y contraseña");
+            }else {
+                iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
+            }
         }
     }
 
-    public void OnClickText_Registro(View view) {
+    public void OnClick_bRegistro(View view) {
         int id = view.getId();
-        if (id  == R.id.tRegisto){
+        if (id  == R.id.bRegisto){
             // CAMBIANDO DEL LOGGIN AL REGISTRO CUANDO NO SE HA REGISTRADO
             Intent intent = new Intent(LogginActivity.this, RegistroActivity.class);
             startActivity(intent);
-
-
         }
-
     }
 
     @Override
@@ -212,8 +210,6 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
         }
 
     }
-
-
     private void iniciarsesion(String email, String pass) {
         firebaseAuth.signInWithEmailAndPassword(email, pass).
                 addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -221,9 +217,12 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             goMainActivity();
-                            Toast.makeText(LogginActivity.this, "Inicio correcto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LogginActivity.this, "Inicio correcto",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(LogginActivity.this, "Error al iniciar", Toast.LENGTH_SHORT).show();
+                            tError.setText("Correo o contraseña incorrectos");
+                            Toast.makeText(LogginActivity.this, "Error al iniciar",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -248,7 +247,7 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void goMainActivity(){
-        Intent i = new Intent(LogginActivity.this, PirncipalActivity.class);
+        Intent i = new Intent(LogginActivity.this, PrincipalActivity.class);
         startActivity(i);
         finish();
     }
@@ -268,6 +267,12 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    public void onClickEditUsuario(View view) {
+        tError.setText("");
+        eUser.setText("");
+        ePassword.setText("");
     }
 }
 

@@ -2,19 +2,22 @@
     <string name="facebook_app_id">992508354240026</string>
     <string name="fb_login_protocol_scheme">fb992508354240026</string>
 
-    <string name="app_name">Principal</string>
-    <string name="user">Usuario</string>
+    <string name="app_name">Meet U</string>
+    <string name="user">Nombre y apellidos</string>
     <string name="password">Contraseña</string>
     <string name="Aceptar">Aceptar</string>
     <string name="Registro">Registrate</string>
-    <string name="Info">Ingrese los datos para el registro</string>
+    <string name="Info">Regalanos tus datos personales</string>
     <string name="Email1">Correo electrónico</string>
-    <string name="Email2">Confirme correo electrónico</string>
+    <string name="Email2">Confirme el correo electrónico</string>
     <string name="passw1">Contraseña</string>
-    <string name="passw2">Confirme contraseña</string>
-    <string name="Registrar">Registrar</string>
+    <string name="passw2">Confirme la contraseña</string>
     <string name="Perfil">Mi Perfil</string>
     <string name="Logout">Cerrar Sesión</string>
     <string name="Principal">Principal</string>
     <string name="title_activity_prueba">PruebaActivity</string>
+    <string name="OlvidoContraseña">¿Olvidó la contraseña?</string>
+    <string name="OIniciarSesionCon">O iniciar sesión con</string>
+    <string name="Login">Login</string>
+    <string name="correo">Correo</string>
 </resources>

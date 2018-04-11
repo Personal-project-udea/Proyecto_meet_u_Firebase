@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class PirncipalActivity extends AppCompatActivity {
+public class PrincipalActivity extends AppCompatActivity {
 
     String user = "", pwd = "", email = "";
     Bundle extras;
@@ -15,7 +15,7 @@ public class PirncipalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pirncipal);
+        setContentView(R.layout.activity_principal);
 
         extras = getIntent().getExtras();
 
@@ -40,7 +40,7 @@ public class PirncipalActivity extends AppCompatActivity {
 
         if (id == R.id.mProfile){
             Toast.makeText(this, "Perfil presionado", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(PirncipalActivity.this, PerfilActivity.class);
+            Intent intent1 = new Intent(PrincipalActivity.this, PerfilActivity.class);
             intent1.putExtra("usuario",user);
             intent1.putExtra("password", pwd );
             intent1.putExtra("correo", email);
@@ -53,7 +53,7 @@ public class PirncipalActivity extends AppCompatActivity {
 
         }else if(id == R.id.mLogout){
             Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
-            Intent intent2 = new Intent(PirncipalActivity.this, LogginActivity.class);
+            Intent intent2 = new Intent(PrincipalActivity.this, LogginActivity.class);
             intent2.putExtra("usuario",user);
             intent2.putExtra("password", pwd );
             intent2.putExtra("correo", email);
