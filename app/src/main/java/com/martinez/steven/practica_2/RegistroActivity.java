@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class RegistroActivity extends AppCompatActivity {
 
 
     EditText erUser, erEmail1, erEmail2, erPass1, erPass2;
-    ImageButton bRegistrar;
+    Button bRegistrar;
     String email1, email2, pass1, pass2, user;
 
     ArrayList<String> nombrelist;

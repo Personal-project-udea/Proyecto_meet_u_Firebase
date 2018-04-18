@@ -22,7 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.logging.LogManager;
 
-public class PirncipalActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class PrincipalActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     String user = "", pwd = "", email = "";
     Bundle extras;
@@ -34,7 +34,7 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pirncipal);
+        setContentView(R.layout.activity_principal);
 
         extras = getIntent().getExtras();
 
@@ -84,7 +84,7 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
 
         if (id == R.id.mProfile){
             Toast.makeText(this, "Perfil presionado", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(PirncipalActivity.this, PerfilActivity.class);
+            Intent intent1 = new Intent(PrincipalActivity.this, PerfilActivity.class);
             intent1.putExtra("usuario",user);
             intent1.putExtra("password", pwd );
             intent1.putExtra("correo", email);
@@ -97,6 +97,7 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
 
         }else if(id == R.id.mLogout){
             Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
+            Intent intent2 = new Intent(PrincipalActivity.this, LogginActivity.class);
             firebaseAuth.signOut();
             if(Auth.GoogleSignInApi != null) {
                 Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
@@ -105,7 +106,7 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
                         if (status.isSuccess()) {
                             goLoginActivity();
                         } else {
-                            Toast.makeText(PirncipalActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PrincipalActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -127,7 +128,7 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
         return super.onOptionsItemSelected(item);
     }
     private void goLoginActivity(){
-        Intent intent2 = new Intent(PirncipalActivity.this, LogginActivity.class);
+        Intent intent2 = new Intent(PrincipalActivity.this, LogginActivity.class);
         startActivity(intent2);
         finish();
     }

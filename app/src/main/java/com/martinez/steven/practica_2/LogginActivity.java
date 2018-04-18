@@ -1,15 +1,11 @@
 package com.martinez.steven.practica_2;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -63,8 +59,8 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
 
     EditText eUser, ePassword;
-    TextView tRegistro;
-    ImageButton bLoggin;
+    TextView tError;
+    Button bRegistro, bLoggin;
     String user = "", pwd = "", email = "";
     Bundle extras;
     String epwd = "", euser = "";
@@ -79,7 +75,8 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
         eUser = findViewById(R.id.eUser);
         ePassword = findViewById(R.id.ePassword);
-        tRegistro = findViewById(R.id.tRegisto);
+        tError = findViewById(R.id.tError);
+        bRegistro = findViewById(R.id.bRegisto);
         bLoggin = findViewById(R.id.bLoggin);
         extras = getIntent().getExtras();
         btnSingInGoogle = findViewById(R.id.btnSingInGoogle);
@@ -154,23 +151,21 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
     public void OnClickButton_Loggin(View view) {
         int id  = view.getId();
-
         if (id == R.id.bLoggin){
 
             iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
         }
     }
 
-    public void OnClickText_Registro(View view) {
+    public void OnClick_bRegistro(View view) {
         int id = view.getId();
-        if (id  == R.id.tRegisto){
+        if (id  == R.id.bRegisto){
             // CAMBIANDO DEL LOGGIN AL REGISTRO CUANDO NO SE HA REGISTRADO
             Intent intent = new Intent(LogginActivity.this, RegistroActivity.class);
             startActivity(intent);
 
 
         }
-
     }
 
     @Override

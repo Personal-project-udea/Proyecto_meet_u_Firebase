@@ -5,12 +5,13 @@
     tools:context="com.martinez.steven.practica_2.SplashActivity"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimary">
 
     <ImageView android:id="@+id/splashscreen"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:src="@drawable/splash"
+        android:src="@drawable/logo"
         android:layout_gravity="center"/>
 
 </LinearLayout>

@@ -7,98 +7,123 @@
     android:layout_height="match_parent"
     tools:context="com.martinez.steven.practica_2.LogginActivity"
     android:orientation="vertical">
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleY="0.8"
-        android:scaleX="0.5"
-        android:background="@drawable/logo"
-        android:layout_margin="10dp"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/user"
-        android:id="@+id/eUser"
-        android:layout_margin="10dp"
-        android:textSize="20dp"
-        android:maxLines="1"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:id="@+id/ePassword"
-        android:layout_margin="10dp"
-        android:textSize="20dp"
-        android:maxLines="1"
-
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/btnSingInGoogle"
-        />
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
-
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/logom"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button"
-            android:layout_margin="10dp"
-            android:scaleX="0.6"
-            android:scaleY="0.6"
-            android:onClick="OnClickButton_Loggin"
-            android:id="@+id/bLoggin"
-
-            />
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="15dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            android:text="@string/Aceptar"
-            android:textSize="20dp"
-            />
-    </RelativeLayout>
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            android:layout_marginHorizontal="25dp"
+            android:id="@+id/tError"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Registro"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:onClick="OnClickText_Registro"
-        android:id="@+id/tRegisto"
-        />
+        <EditText
+            android:id="@+id/eUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/correo"
+            android:background="@drawable/rectangulos_redondos"
+            android:maxLines="1"
+            android:textSize="18sp"
+            android:layout_marginHorizontal="25dp"
+            android:onClick="onClickEditUsuario"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="10dp">
 
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:id="@+id/ePassword"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:background="@drawable/rectangulos_redondos"
+            android:layout_marginHorizontal="25dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/OlvidoContraseña"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:layout_margin="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/OIniciarSesionCon"
+            android:textSize="18sp" />
+        <com.google.android.gms.common.SignInButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/btnSingInGoogle"
+            android:layout_margin="10dp"/>
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="25dp"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/rectangulos_redondos"
+                android:text="@string/Login"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_margin="10dp"
+                android:textStyle="bold"
+                android:onClick="OnClickButton_Loggin"
+                android:id="@+id/bLoggin"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="25dp"
+            android:layout_height="wrap_content">
+            <Button
+                android:background="@drawable/rectangulos_redondos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Registro"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:onClick="OnClick_bRegistro"
+                android:id="@+id/bRegisto"/>
+        </LinearLayout>
     </LinearLayout>
+</LinearLayout>

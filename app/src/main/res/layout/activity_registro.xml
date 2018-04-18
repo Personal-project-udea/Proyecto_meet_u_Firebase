@@ -5,23 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="5dp"
     tools:context="com.martinez.steven.practica_2.RegistroActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:textStyle="italic"
-            android:textSize="25dp"
+            android:textSize="20sp"
             android:textColor="@color/black"
             android:text="@string/Info"
-            android:maxLines="1"
-            />
+            android:maxLines="1"            />
 
         <EditText
             android:layout_width="match_parent"
@@ -70,33 +69,15 @@
 
             />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
-            <ImageButton
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/button"
-                android:layout_margin="10dp"
-                android:scaleX="0.6"
-                android:scaleY="0.6"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/rectangulos_redondos"
+                android:layout_marginHorizontal="40dp"
                 android:onClick="OnClickButton_Registrar"
                 android:id="@+id/bRegistrar"
-
-                />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:gravity="center"
-                android:text="@string/Registrar"
-                android:textSize="20dp" />
-        </RelativeLayout>
+                android:text="@string/Registro"/>
 
     </LinearLayout>
 </ScrollView>
