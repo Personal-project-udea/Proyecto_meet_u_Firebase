@@ -47,8 +47,7 @@
             android:background="@drawable/rectangulos_redondos"
             android:maxLines="1"
             android:textSize="18sp"
-            android:layout_marginHorizontal="25dp"
-            android:onClick="onClickEditUsuario"/>
+            android:layout_marginHorizontal="25dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
