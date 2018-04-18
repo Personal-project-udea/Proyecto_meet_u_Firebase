@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -106,17 +107,26 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
 
 
         }else if(id == R.id.mLogout){
+            Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
             firebaseAuth.signOut();
-            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                @Override
-                public void onResult(@NonNull Status status) {
-                    if (status.isSuccess()){
-                        goLoginActivity();
-                    }else{
-                        Toast.makeText(PerfilActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
+            if(Auth.GoogleSignInApi != null) {
+                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (status.isSuccess()) {
+                            goLoginActivity();
+                        } else {
+                            Toast.makeText(PerfilActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
+                });
+            }else if(LoginManager.getInstance() != null){
+                LoginManager.getInstance().logOut();
+                goLoginActivity();
+            }else{
+                goLoginActivity();
+            }
+
 
         }
         return super.onOptionsItemSelected(item);

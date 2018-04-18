@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -18,6 +19,8 @@ import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
+
+import java.util.logging.LogManager;
 
 public class PirncipalActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -94,23 +97,31 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
 
         }else if(id == R.id.mLogout){
             Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
-            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                @Override
-                public void onResult(@NonNull Status status) {
-                    if (status.isSuccess()){
-                        goLoginActivity();
-                    }else{
-                        Toast.makeText(PirncipalActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
+            firebaseAuth.signOut();
+            if(Auth.GoogleSignInApi != null) {
+                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        if (status.isSuccess()) {
+                            goLoginActivity();
+                        } else {
+                            Toast.makeText(PirncipalActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            });
-            Intent intent2 = new Intent(PirncipalActivity.this, LogginActivity.class);
+                });
+            }else if(LoginManager.getInstance() != null){
+                LoginManager.getInstance().logOut();
+                goLoginActivity();
+            }else{
+                goLoginActivity();
+            }
+            /*Intent intent2 = new Intent(PirncipalActivity.this, LogginActivity.class);
             intent2.putExtra("usuario",user);
             intent2.putExtra("password", pwd );
             intent2.putExtra("correo", email);
             //setResult(RESULT_OK, intent2);
             startActivity(intent2);
-            finish();
+            finish();*/
 
         }
         return super.onOptionsItemSelected(item);
@@ -150,5 +161,6 @@ public class PirncipalActivity extends AppCompatActivity implements GoogleApiCli
         super.onResume();
         googleApiClient.connect();
     }
+
 
 }

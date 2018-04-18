@@ -18,6 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.martinez.steven.practica_2.model.Usuarios;
+
+import java.util.ArrayList;
 
 public class RegistroActivity extends AppCompatActivity {
 
@@ -30,6 +38,9 @@ public class RegistroActivity extends AppCompatActivity {
     ImageButton bRegistrar;
     String email1, email2, pass1, pass2, user;
 
+    ArrayList<String> nombrelist;
+    ArrayList<Usuarios> usuarioslist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +52,9 @@ public class RegistroActivity extends AppCompatActivity {
         erPass1 = findViewById(R.id.erPass1);
         erPass2 = findViewById(R.id.erPass2);
         bRegistrar = findViewById(R.id.bRegistrar);
+
+        nombrelist = new ArrayList<>();
+        usuarioslist = new ArrayList<>();
 
         inicializar();
     }
@@ -85,6 +99,7 @@ public class RegistroActivity extends AppCompatActivity {
 
                     //setResult(RESULT_OK, intent);
                     //startActivity(intent);
+                    crearUsuario();
                     Toast.makeText(RegistroActivity.this, "Registro completo", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
@@ -94,6 +109,44 @@ public class RegistroActivity extends AppCompatActivity {
                 Toast.makeText(RegistroActivity.this, "Complete los campos vacios", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void crearUsuario() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("Usuarios").child(firebaseUser.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        usuarioslist.clear();
+                        nombrelist.clear();
+                        Log.d("value", "Clear");
+                        if(dataSnapshot.exists()){
+
+                            Log.d("Existe", "SI");
+                        }else{
+                            Log.d("Existe", "NO");
+                            Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
+                                    firebaseUser.getDisplayName(),
+                                    firebaseUser.getPhoneNumber(),
+                                    firebaseUser.getEmail(),
+                                    "url photo");
+
+                            Log.d("button", "Entra al boton marca 1 ");
+
+                            databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     private void crearCuenta(String email, String pass) {

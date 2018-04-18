@@ -38,10 +38,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.martinez.steven.practica_2.model.Usuarios;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+import java.util.ArrayList;
 
 
 public class LogginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener{
@@ -63,6 +69,9 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
     Bundle extras;
     String epwd = "", euser = "";
 
+    ArrayList<String> nombrelist;
+    ArrayList<Usuarios> usuarioslist;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +85,9 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
         btnSingInGoogle = findViewById(R.id.btnSingInGoogle);
         btnSingInFacebook = findViewById(R.id.login_button);
         callbackManager = CallbackManager.Factory.create();
+
+        nombrelist = new ArrayList<>();
+        usuarioslist = new ArrayList<>();
 
 
         inicializar();
@@ -223,9 +235,52 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void goMainActivity(){
-        Intent i = new Intent(LogginActivity.this, PirncipalActivity.class);
+        crearUsuario();
+        Intent i = new Intent(LogginActivity.this,  PruebaActivity.class);
+
+        //PirncipalActivity.class);
+
         startActivity(i);
         finish();
+    }
+
+    private void crearUsuario() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        FirebaseDatabase.getInstance();
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("Usuarios").child(firebaseUser.getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        usuarioslist.clear();
+                        nombrelist.clear();
+                        Log.d("value", "Clear");
+                        if(dataSnapshot.exists()){
+
+                            Log.d("Existe", "SI");
+                        }else{
+                            Log.d("Existe", "NO");
+                            Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
+                                    firebaseUser.getDisplayName(),
+                                    firebaseUser.getPhoneNumber(),
+                                    firebaseUser.getEmail(),
+                                    "url photo");
+
+                            Log.d("button", "Entra al boton marca 1 ");
+
+                            databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
     }
 
     @Override
