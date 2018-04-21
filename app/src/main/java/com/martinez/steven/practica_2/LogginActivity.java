@@ -157,8 +157,11 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
     public void OnClickButton_Loggin(View view) {
         int id  = view.getId();
         if (id == R.id.bLoggin){
-
-            iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
+            if (!eUser.getText().toString().isEmpty()& !ePassword.getText().toString().isEmpty()) {
+                iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
+            }else {
+                Toast.makeText(this, "Llene todos los campos vacios", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -236,10 +239,7 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
     private void goMainActivity(){
         crearUsuario();
-        Intent i = new Intent(LogginActivity.this,  PruebaActivity.class);
-
-        //PirncipalActivity.class);
-
+        Intent i = new Intent(LogginActivity.this,  PrincipalActivity.class);
         startActivity(i);
         finish();
     }
@@ -315,6 +315,11 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
         } catch (NoSuchAlgorithmException e) {
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
 

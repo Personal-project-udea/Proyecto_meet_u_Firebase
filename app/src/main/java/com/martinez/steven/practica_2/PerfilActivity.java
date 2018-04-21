@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,18 +21,23 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.martinez.steven.practica_2.model.Usuarios;
 import com.squareup.picasso.Picasso;
 
 public class PerfilActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     String pwd = "", email = "", user = "";
     Bundle extras;
-    EditText eUsuario , eCorreo;
+    EditText eUsuario , eCorreo, eTelefono;
     ImageView iFoto;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleApiClient googleApiClient;
+
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
         eUsuario = findViewById(R.id.eUsuario);
         eCorreo = findViewById(R.id.eCorreo);
         iFoto = findViewById(R.id.iFoto);
+        eTelefono = findViewById(R.id.eTelefono);
 
         extras = getIntent().getExtras();
         if(extras != null) {
@@ -50,8 +57,11 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
             eUsuario.setText(user);
             eCorreo.setText(email);
         }
+        FirebaseDatabase.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        Log.d("value", "oncreate 2");
 
-    inicializar();
+        inicializar();
 
     }
 
@@ -64,6 +74,8 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
                 if(firebaseUser != null){
                     Log.d("FirebaseUser", "Usuario Logeado: "+firebaseUser.getDisplayName());
                     eCorreo.setText(firebaseUser.getEmail());
+                    eUsuario.setText(firebaseUser.getDisplayName());
+                    eTelefono.setText(firebaseUser.getPhoneNumber());
                     Picasso.get().load(firebaseUser.getPhotoUrl()).into(iFoto);
                 }else{
                     Log.d("FirebaseUser", "No hay usuario logeado ");
@@ -95,13 +107,6 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
 
         if (id == R.id.mPrincipal){
             Toast.makeText(this, "Pprincipal presionado", Toast.LENGTH_SHORT).show();
-            /*Intent intent1 = new Intent();
-            intent1.putExtra("usuario",user);
-            intent1.putExtra("password", pwd );
-            intent1.putExtra("correo", email);
-            //setResult(RESULT_OK, intent1);
-            //startActivityForResult(intent1, 0100);
-            startActivity(intent1);*/
             onBackPressed();
 
 
@@ -168,4 +173,48 @@ public class PerfilActivity extends AppCompatActivity implements GoogleApiClient
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    public void OnClickButton_Guardar(View view) {
+        Log.d("button", "Entra al boton ");
+        Usuarios usuarios = new Usuarios(databaseReference.child("Usuarios").push().getKey(),
+                eUsuario.getText().toString(),
+                eTelefono.getText().toString(),
+                eCorreo.getText().toString(),
+                "url foto");
+        Log.d("button", "Entra al boton marca 1 ");
+
+        databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+        Log.d("button", "Entra al boton marca 2 ");
+    }
+
+    public void OnClickButton_Cerrar(View view) {
+        Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
+        firebaseAuth.signOut();
+        if(Auth.GoogleSignInApi != null) {
+            Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+                @Override
+                public void onResult(@NonNull Status status) {
+                    if (status.isSuccess()) {
+                        goLoginActivity();
+                    } else {
+                        Toast.makeText(PerfilActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else if(LoginManager.getInstance() != null){
+            LoginManager.getInstance().logOut();
+            goLoginActivity();
+        }else{
+            goLoginActivity();
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+
 }

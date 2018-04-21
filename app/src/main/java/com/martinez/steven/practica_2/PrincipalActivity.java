@@ -163,5 +163,8 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
         googleApiClient.connect();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }

@@ -20,4 +20,7 @@
 
     <string name="facebook_app_id">164463184272210</string>
     <string name="fb_login_protocol_scheme">fb164463184272210</string>
+    <string name="Telefono">Telefono</string>
+    <string name="Guardar">Guardar cambios</string>
+    <string name="Cerrar">Cerrar sesión</string>
 </resources>
