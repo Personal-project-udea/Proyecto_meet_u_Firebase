@@ -2,8 +2,16 @@ package com.martinez.steven.practica_2;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,12 +39,22 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
     private FirebaseAuth.AuthStateListener authStateListener;
     private GoogleApiClient googleApiClient;
 
+    private FragmentManager fm;
+    private FragmentTransaction ft;
+
+    BottomNavigationView navigation;
+
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
         extras = getIntent().getExtras();
+        fm = getSupportFragmentManager();
+        ft = fm.beginTransaction();
 
         if (extras != null) {
             user = extras.getString("usuario");
@@ -44,7 +62,56 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             email = extras.getString("correo");
         }
 
-    inicializar();
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+
+        inicializar();
+
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                ft = fm.beginTransaction();
+                switch (item.getItemId()) {
+
+                    case R.id.mEvent:
+                        //mTextMessage.setText(R.string.Superman);
+                        EventosFragment fragment = new EventosFragment();
+                        ft.replace(R.id.main_content, fragment).commit();
+                        return true;
+                    case R.id.mEdit:
+                        //mTextMessage.setText(R.string.Batman);
+                        EditFragment fragment2 = new EditFragment();
+                        ft.replace(R.id.main_content, fragment2).commit();
+                        return true;
+                    case R.id.mCheck:
+                        //mTextMessage.setText(R.string.Flash);
+                        CheckFragment fragment3 = new CheckFragment();
+                        ft.replace(R.id.main_content, fragment3).commit();
+                        return true;
+                    case R.id.mProfile:
+                        //mTextMessage.setText(R.string.Flash);
+                        PerfilFragment fragment4 = new PerfilFragment();
+                        ft.replace(R.id.main_content, fragment4).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
+
+        FutbolkFragment fragmen_ini = new FutbolkFragment();
+        ft.add(R.id.main_content,fragmen_ini).commit();
+
 
     }
     private void inicializar() {
@@ -167,4 +234,58 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
     public void onBackPressed() {
         finish();
     }
+
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            switch (position){
+                case 0:
+                    FutbolkFragment tab1 = new FutbolkFragment();
+                    return tab1;
+                case 1:
+                    BasquetbolFragment tab2 = new BasquetbolFragment();
+                    return tab2;
+                case 2:
+                    FSalaFragment tab3 = new FSalaFragment();
+                    return tab3;
+                case 3:
+                    VoleibolFragment tab4 = new VoleibolFragment();
+                    return tab4;
+                default:
+                    return null;
+            }
+
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position){
+                case 0:
+                    return "Fútbol";
+                case 1:
+                    return "Básquetbol";
+                case 2:
+                    return "F. Sala";
+                case 3:
+                    return "Voleibol";
+            }
+            return super.getPageTitle(position);
+
+        }
+
+        @Override
+        public int getCount() {
+            // Show 3 total pages.
+            return 4;
+
+        }
+    }
+
 }

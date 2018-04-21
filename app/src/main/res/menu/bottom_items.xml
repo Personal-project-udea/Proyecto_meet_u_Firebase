@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mEvent"
+        android:icon="@drawable/ic_event_black_24dp"
+        android:title="@string/Event" />
+    <item
+        android:id="@+id/mEdit"
+        android:icon="@drawable/ic_mode_edit_black_24dp"
+        android:title="@string/Edit" />
+    <item
+        android:id="@+id/mCheck"
+        android:icon="@drawable/ic_done_all_black_24dp"
+        android:title="@string/Done" />
+    <item
+        android:id="@+id/mProfile"
+        android:icon="@drawable/ic_perm_identity_black_24dp"
+        android:title="@string/Profile" />
+</menu>
