@@ -43,7 +43,9 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".RegistroActivity"
             android:label="@string/Registro"/>
-        <activity android:name=".PrincipalActivity" />
+        <activity android:name=".PrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".PerfilActivity" />
         <activity
             android:name=".PruebaActivity"

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
 
     BottomNavigationView navigation;
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private PagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
     @Override
@@ -62,8 +63,8 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             email = extras.getString("correo");
         }
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -87,30 +88,27 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                     case R.id.mEvent:
                         //mTextMessage.setText(R.string.Superman);
                         EventosFragment fragment = new EventosFragment();
-                        ft.replace(R.id.main_content, fragment).commit();
+                        ft.replace(android.R.id.content, fragment).commit();
                         return true;
                     case R.id.mEdit:
                         //mTextMessage.setText(R.string.Batman);
                         EditFragment fragment2 = new EditFragment();
-                        ft.replace(R.id.main_content, fragment2).commit();
+                        ft.replace(android.R.id.content, fragment2).commit();
                         return true;
                     case R.id.mCheck:
                         //mTextMessage.setText(R.string.Flash);
                         CheckFragment fragment3 = new CheckFragment();
-                        ft.replace(R.id.main_content, fragment3).commit();
+                        ft.replace(android.R.id.content, fragment3).commit();
                         return true;
                     case R.id.mProfile:
                         //mTextMessage.setText(R.string.Flash);
                         PerfilFragment fragment4 = new PerfilFragment();
-                        ft.replace(R.id.main_content, fragment4).commit();
+                        ft.replace(android.R.id.content, fragment4).commit();
                         return true;
                 }
                 return false;
             }
         });
-
-        FutbolkFragment fragmen_ini = new FutbolkFragment();
-        ft.add(R.id.main_content,fragmen_ini).commit();
 
 
     }
