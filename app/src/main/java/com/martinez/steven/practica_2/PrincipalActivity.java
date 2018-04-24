@@ -63,19 +63,6 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             email = extras.getString("correo");
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
-
         inicializar();
 
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -111,6 +98,8 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
         });
 
 
+        EventosFragment fragmentini = new EventosFragment();
+        ft.replace(android.R.id.content, fragmentini).commit();
     }
     private void inicializar() {
         firebaseAuth = FirebaseAuth.getInstance();
@@ -284,6 +273,10 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             return 4;
 
         }
+    }
+
+    public void setActionBarTitle(Toolbar toolbar) {
+        this.setSupportActionBar(toolbar);
     }
 
 }
