@@ -65,11 +65,14 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
 
         inicializar();
 
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation =  findViewById(R.id.navigation);
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
                 ft = fm.beginTransaction();
+
                 switch (item.getItemId()) {
 
                     case R.id.mEvent:
@@ -97,10 +100,12 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             }
         });
 
-
         EventosFragment fragmentini = new EventosFragment();
         ft.replace(android.R.id.content, fragmentini).commit();
+
     }
+
+
     private void inicializar() {
         firebaseAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -125,6 +130,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                 build();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -132,25 +138,26 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.mProfile){
+
             Toast.makeText(this, "Perfil presionado", Toast.LENGTH_SHORT).show();
+
             Intent intent1 = new Intent(PrincipalActivity.this, PerfilActivity.class);
             intent1.putExtra("usuario",user);
             intent1.putExtra("password", pwd );
             intent1.putExtra("correo", email);
-            //setResult(RESULT_OK, intent1);
-            //startActivityForResult(intent1, 0011);
+
             startActivity(intent1);
-            //onBackPressed();
-
-
 
         }else if(id == R.id.mLogout){
+
             Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
+
             Intent intent2 = new Intent(PrincipalActivity.this, LogginActivity.class);
             firebaseAuth.signOut();
             if(Auth.GoogleSignInApi != null) {
@@ -164,21 +171,18 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                         }
                     }
                 });
+
             }else if(LoginManager.getInstance() != null){
                 LoginManager.getInstance().logOut();
                 goLoginActivity();
+
             }else{
                 goLoginActivity();
             }
-            /*Intent intent2 = new Intent(PirncipalActivity.this, LogginActivity.class);
-            intent2.putExtra("usuario",user);
-            intent2.putExtra("password", pwd );
-            intent2.putExtra("correo", email);
-            //setResult(RESULT_OK, intent2);
-            startActivity(intent2);
-            finish();*/
+
 
         }
+
         return super.onOptionsItemSelected(item);
     }
     private void goLoginActivity(){
@@ -222,58 +226,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
         finish();
     }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            switch (position){
-                case 0:
-                    FutbolkFragment tab1 = new FutbolkFragment();
-                    return tab1;
-                case 1:
-                    BasquetbolFragment tab2 = new BasquetbolFragment();
-                    return tab2;
-                case 2:
-                    FSalaFragment tab3 = new FSalaFragment();
-                    return tab3;
-                case 3:
-                    VoleibolFragment tab4 = new VoleibolFragment();
-                    return tab4;
-                default:
-                    return null;
-            }
-
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position){
-                case 0:
-                    return "Fútbol";
-                case 1:
-                    return "Básquetbol";
-                case 2:
-                    return "F. Sala";
-                case 3:
-                    return "Voleibol";
-            }
-            return super.getPageTitle(position);
-
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 4;
-
-        }
-    }
 
     public void setActionBarTitle(Toolbar toolbar) {
         this.setSupportActionBar(toolbar);

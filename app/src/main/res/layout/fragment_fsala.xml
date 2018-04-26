@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".FSalaFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="F SALA"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:id="@+id/vRecycler">
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </FrameLayout>

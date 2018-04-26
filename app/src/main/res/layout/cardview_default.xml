@@ -3,63 +3,71 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
-        android:padding="5dp"
-        >
+        android:padding="8dp">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:id="@+id/iGraf"
-            android:layout_marginBottom="2dp"
-            android:background="@color/colorPrimary"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:text="Deporte"
                 android:id="@+id/tDeporte"/>
-            <TextView
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:text="Lugar"
-                android:id="@+id/tLugar"/>
+                android:layout_height="160dp"
+                android:id="@+id/iGraf"
+                android:layout_marginBottom="2dp"
+                android:background="@color/whitesmoke"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:gravity="start"
-                    android:text="Fecha"
-                    android:id="@+id/tFecha"
-                    />
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:gravity="end"
-                    android:text="Hora"
-                    android:id="@+id/tHora"
-                    />
+                    android:textStyle="bold"
+                    android:text="Lugar"
+                    android:id="@+id/tLugar"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:gravity="start"
+                        android:text="Fecha"
+                        android:id="@+id/tFecha"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:gravity="end"
+                        android:text="Hora"
+                        android:id="@+id/tHora"
+                        />
 
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

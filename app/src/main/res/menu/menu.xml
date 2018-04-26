@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/mProfile"
         android:title="@string/Perfil"
@@ -8,5 +9,12 @@
     <item
         android:id="@+id/mLogout"
         android:title="@string/Logout"
+
+        />
+    <item
+        android:id="@+id/mCrearEvento"
+        android:title="Crear evento"
+        android:icon="@mipmap/ic_add_white_24dp"
+        app:showAsAction="always"
         />
 </menu>

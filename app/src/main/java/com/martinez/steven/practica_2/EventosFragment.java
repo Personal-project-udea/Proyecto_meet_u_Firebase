@@ -59,14 +59,13 @@ public class EventosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //((PrincipalActivity) getActivity()).getSupportActionBar().hide();
+
         View view = inflater.inflate(R.layout.fragment_eventos, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((PrincipalActivity) getActivity()).setActionBarTitle(toolbar);
         AppBarLayout appBarLayout = (AppBarLayout) view.findViewById(R.id.appbar);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
-        mViewPager = (ViewPager) view.findViewById(R.id.container);
+        mViewPager = view.findViewById(R.id.container);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
@@ -74,8 +73,6 @@ public class EventosFragment extends Fragment {
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
-
-        //return inflater.inflate(R.layout.fragment_eventos, container, false);
         return view;
     }
 
