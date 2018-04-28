@@ -266,9 +266,9 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
                             Log.d("Existe", "NO");
                             Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
                                     firebaseUser.getDisplayName(),
-                                    firebaseUser.getPhoneNumber(),
+                                    "Telefono",
                                     firebaseUser.getEmail(),
-                                    "url photo");
+                                    firebaseUser.getPhotoUrl().toString());
 
                             Log.d("button", "Entra al boton marca 1 ");
 
