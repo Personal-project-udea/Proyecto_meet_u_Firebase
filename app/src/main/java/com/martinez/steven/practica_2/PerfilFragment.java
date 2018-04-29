@@ -70,7 +70,7 @@ public class PerfilFragment extends Fragment {
 
     View view;
 
-    private String urlFoto = "No ha cargado";
+    private String urlFoto = "No ha cargado", id;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -99,7 +99,8 @@ public class PerfilFragment extends Fragment {
         eUsuario.setText(bundle.getString("nombre"));
         eCorreo.setText(bundle.getString("correo"));
         eTelefono.setText(bundle.getString("telefono"));
-         urlFoto = bundle.getString("foto");
+        urlFoto = bundle.getString("foto");
+        id = bundle.getString("id");
         Picasso.get().load(bundle.getString("foto")).into(iFoto);
 
 
@@ -182,7 +183,7 @@ public class PerfilFragment extends Fragment {
     }
 
     public void savedatabase(){
-        Log.d("button", "Entra al boton ");
+        /*Log.d("button", "Entra al boton ");
         Usuarios usuarios = new Usuarios(databaseReference.child("Usuarios").push().getKey(),
                 eUsuario.getText().toString(),
                 eTelefono.getText().toString(),
@@ -207,9 +208,12 @@ public class PerfilFragment extends Fragment {
             }
         });
         Log.d("Entre3", "OK");
-        Log.d("Enter4", usuarios.getId());
 
-        databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+        */
+        databaseReference.child("Usuarios").child(id).child("nombre").setValue(eUsuario.getText().toString());
+        databaseReference.child("Usuarios").child(id).child("telefono").setValue(eTelefono.getText().toString());
+        databaseReference.child("Usuarios").child(id).child("foto").setValue(urlFoto);
+        Log.d("Enter4", "ok4");
 
 
 

@@ -119,6 +119,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                         ft.addToBackStack("correo");
                         ft.addToBackStack("telefono");
                         ft.addToBackStack("foto");
+                        ft.addToBackStack("id");
 
                         ft.replace(android.R.id.content, fragment4).commit();
                         return true;
@@ -153,6 +154,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                                         arg.putString("correo", usuarios.getCorreo());
                                         arg.putString("telefono", usuarios.getTelefono());
                                         arg.putString("foto", usuarios.getFoto());
+                                        arg.putString("id", usuarios.getId());
                                     }
                                 }
                             }
