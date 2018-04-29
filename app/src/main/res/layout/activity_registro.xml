@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
     tools:context="com.martinez.steven.practica_2.RegistroActivity">
+
     <LinearLayout
+        android:paddingHorizontal="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,20 +16,27 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:textStyle="italic"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
             android:textSize="20sp"
             android:textColor="@color/black"
             android:text="@string/Info"
-            android:maxLines="1"            />
+            android:gravity="center"
+
+            />
 
         <EditText
+            android:top="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="@string/user"
             android:id="@+id/erUser"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            android:background="@drawable/crear_evento_resource"
             />
         <EditText
             android:layout_width="match_parent"
@@ -36,7 +44,12 @@
             android:layout_margin="10dp"
             android:hint="@string/Email1"
             android:id="@+id/erEmail1"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            android:background="@drawable/crear_evento_resource"
+
+
 
             />
         <EditText
@@ -45,7 +58,12 @@
             android:layout_margin="10dp"
             android:hint="@string/Email2"
             android:id="@+id/erEmail2"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            android:background="@drawable/crear_evento_resource"
+
+
 
             />
         <EditText
@@ -55,7 +73,11 @@
             android:hint="@string/passw1"
             android:inputType="textPassword"
             android:id="@+id/erPass1"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:gravity="center"
+            android:background="@drawable/crear_evento_resource"
+
 
             />
         <EditText
@@ -65,19 +87,24 @@
             android:hint="@string/passw2"
             android:inputType="textPassword"
             android:id="@+id/erPass2"
-            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:background="@drawable/crear_evento_resource"
+            android:gravity="center"
+
+
 
             />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimary"
-                android:background="@drawable/rectangulos_redondos"
-                android:layout_marginHorizontal="40dp"
-                android:onClick="OnClickButton_Registrar"
-                android:id="@+id/bRegistrar"
-                android:text="@string/Registro"/>
-
     </LinearLayout>
-</ScrollView>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:onClick="OnClickButton_Registrar"
+        android:id="@+id/bRegistrar"
+        android:text="@string/Registro"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

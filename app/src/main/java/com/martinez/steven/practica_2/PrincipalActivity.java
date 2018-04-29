@@ -192,7 +192,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                 build();
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
@@ -203,45 +203,13 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.mProfile){
-            Toast.makeText(this, "Perfil presionado", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(PrincipalActivity.this, PerfilActivity.class);
-            intent1.putExtra("usuario",user);
-            intent1.putExtra("password", pwd );
-            intent1.putExtra("correo", email);
-            //setResult(RESULT_OK, intent1);
-            //startActivityForResult(intent1, 0011);
-            startActivity(intent1);
-            //onBackPressed();
-
-
-
-        }else if(id == R.id.mLogout){
-            Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
-            Intent intent2 = new Intent(PrincipalActivity.this, LogginActivity.class);
-            firebaseAuth.signOut();
-            if(Auth.GoogleSignInApi != null) {
-                Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        if (status.isSuccess()) {
-                            goLoginActivity();
-                        } else {
-                            Toast.makeText(PrincipalActivity.this, "Error cerrando sesion con Google", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }else if(LoginManager.getInstance() != null){
-                LoginManager.getInstance().logOut();
-                goLoginActivity();
-            }else{
-                goLoginActivity();
-            }
-
+        if (id == R.id.mCrearEvento){
+            Intent intent = new Intent(PrincipalActivity.this, CrearEvento_Activity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
-    */
+
 
     public void goLoginActivity(){
         Intent intent2 = new Intent(PrincipalActivity.this, LogginActivity.class);

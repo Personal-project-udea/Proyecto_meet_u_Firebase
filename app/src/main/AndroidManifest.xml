@@ -17,7 +17,7 @@
             android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value= "AIzaSyAtmUhvZ9gumVF4rS_7fGEG25ce4Pt1kKE" />
+            android:value="AIzaSyAtmUhvZ9gumVF4rS_7fGEG25ce4Pt1kKE" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -58,6 +58,7 @@
             android:name=".PruebaActivity"
             android:label="@string/title_activity_prueba"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CrearEvento_Activity" />
     </application>
 
 </manifest>

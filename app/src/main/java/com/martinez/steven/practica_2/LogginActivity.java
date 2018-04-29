@@ -64,7 +64,6 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
 
     EditText eUser, ePassword;
-    TextView tError;
     Button bRegistro, bLoggin;
     String user = "", pwd = "", email = "";
     Bundle extras;
@@ -80,7 +79,6 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
 
         eUser = findViewById(R.id.eUser);
         ePassword = findViewById(R.id.ePassword);
-        tError = findViewById(R.id.tError);
         bRegistro = findViewById(R.id.bRegisto);
         bLoggin = findViewById(R.id.bLoggin);
         extras = getIntent().getExtras();
