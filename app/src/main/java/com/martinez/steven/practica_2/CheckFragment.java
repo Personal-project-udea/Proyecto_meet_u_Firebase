@@ -85,6 +85,9 @@ public class CheckFragment extends Fragment {
 
         return view;
 
+
+        //todo full
+
     }
 
 }
