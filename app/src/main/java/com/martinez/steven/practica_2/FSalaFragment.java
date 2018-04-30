@@ -65,7 +65,7 @@ public class FSalaFragment extends Fragment {
                 if (dataSnapshot.exists()){
                     for (DataSnapshot snapshot:dataSnapshot.getChildren()){
                         Eventos eventos = snapshot.getValue(Eventos.class);
-                        if (eventos.getDeporte().equals("Micro Fútbol")){
+                        if (eventos.getDeporte().equals("Micro")){
                             eventoslist.add(eventos);
                         }
 

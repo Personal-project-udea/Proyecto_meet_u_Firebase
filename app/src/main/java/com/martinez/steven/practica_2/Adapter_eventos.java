@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.martinez.steven.practica_2.model.Eventos;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,7 +37,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity, "abre actividadcon el detalle", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -77,10 +76,17 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
             tdeporte.setText(info_evento.getDeporte());
             tfecha.setText(info_evento.getFecha());
             thora.setText(info_evento.getHora());
-            tlugar.setText(info_evento.getLugar());
-            Picasso.get().load(info_evento.getFoto()).into(igraf);
+            tlugar.setText(info_evento.getCancha());
 
-
+            if (info_evento.getDeporte().equals("Fútbol")){
+                igraf.setImageResource(R.drawable.futbol);
+            }else if (info_evento.getDeporte().equals("Básquetbol")){
+                igraf.setImageResource(R.drawable.basquetbol);
+            }else if(info_evento.getDeporte().equals("Voleibol")){
+                igraf.setImageResource(R.drawable.voleibol);
+            }else if(info_evento.getDeporte().equals("Micro")){
+                igraf.setImageResource(R.drawable.micro);
+            }
 
         }
     }

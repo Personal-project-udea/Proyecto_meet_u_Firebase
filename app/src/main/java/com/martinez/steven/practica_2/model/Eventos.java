@@ -1,56 +1,71 @@
 package com.martinez.steven.practica_2.model;
 
 public class Eventos {
-    String deporte, foto, fecha, hora, lugar;
+    String id, descripcion, cancha, puntoEncuentro, deporte, fecha, hora;
 
     public Eventos() {
     }
 
-    public Eventos(String deporte, String foto, String fecha, String hora, String lugar) {
+    public Eventos(String id,String descripcion, String cancha, String puntoEncuentro, String deporte, String fecha, String hora) {
+
+        this.id = id;
+        this.descripcion = descripcion;
+        this.cancha = cancha;
+        this.puntoEncuentro = puntoEncuentro;
         this.deporte = deporte;
-        this.foto = foto;
         this.fecha = fecha;
         this.hora = hora;
-        this.lugar = lugar;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getCancha() {
+        return cancha;
+    }
+
+    public String getPuntoEncuentro() {
+        return puntoEncuentro;
     }
 
     public String getDeporte() {
         return deporte;
     }
 
-    public void setDeporte(String deporte) {
-        this.deporte = deporte;
-    }
-
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
-
     public String getFecha() {
         return fecha;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
     }
 
     public String getHora() {
         return hora;
     }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setCancha(String cancha) {
+        this.cancha = cancha;
+    }
+
+    public void setPuntoEncuentro(String puntoEncuentro) {
+        this.puntoEncuentro = puntoEncuentro;
+    }
+
+    public void setDeporte(String deporte) {
+        this.deporte = deporte;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
     public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public String getLugar() {
-        return lugar;
-    }
-
-    public void setLugar(String lugar) {
-        this.lugar = lugar;
+    public String getId() {
+        return id;
     }
 }

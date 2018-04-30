@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        />
+
     <item
         android:id="@+id/mCrearEvento"
-        android:title="Crear evento"
+        android:title="@string/crear"
         android:icon="@mipmap/ic_add_white_24dp"
         app:showAsAction="always"
         />

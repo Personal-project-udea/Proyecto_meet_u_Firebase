@@ -24,19 +24,39 @@
             android:gravity="center"
             android:layout_marginBottom="20dp"
             android:singleLine="true"
+            android:imeOptions="actionDone"
+
+            />
+
+        <EditText
+            android:lines="3"
+            android:id="@+id/eCancha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/cancha_deportiva"
+            android:background="@drawable/crear_evento_resource"
+            android:maxLines="3"
+            android:gravity="center"
+            android:layout_marginBottom="20dp"
+            android:singleLine="true"
             android:imeOptions="actionNext"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusableInTouchMode="false"
+
             />
 
 
         <EditText
-            android:id="@+id/elugar"
-            android:lines="2"
+            android:id="@+id/ePuntoEncuentro"
+            android:singleLine="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/punto_de_encuentro"
             android:gravity="center"
             android:background="@drawable/crear_evento_resource"
             android:layout_marginBottom="20dp"
+            android:imeOptions="actionDone"
             />
 
         <EditText
@@ -83,12 +103,14 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/bCrearEvento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="CREAR"
             android:layout_alignParentBottom="true"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"
+            android:onClick="OnClickButton_CrearEvento"
 
             />
     </RelativeLayout>
