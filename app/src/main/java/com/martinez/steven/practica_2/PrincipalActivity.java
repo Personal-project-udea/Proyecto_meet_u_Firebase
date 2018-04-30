@@ -139,7 +139,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
-                  //  Toast.makeText(PrincipalActivity.this, "Usuario logeado"+firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PrincipalActivity.this, "Usuario logeado"+firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
                     Log.d("FirebaseUser", "Usuario Logeado: "+firebaseUser.getDisplayName());
 
                     databaseReference = FirebaseDatabase.getInstance().getReference();

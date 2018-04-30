@@ -29,10 +29,14 @@
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Check"
-        android:gravity="center" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp"
+        android:id="@+id/vRecycler">
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </android.support.design.widget.CoordinatorLayout>

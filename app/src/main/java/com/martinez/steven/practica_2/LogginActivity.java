@@ -68,6 +68,7 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
     String user = "", pwd = "", email = "";
     Bundle extras;
     String epwd = "", euser = "";
+    int flag = 0;
 
     ArrayList<String> nombrelist;
     ArrayList<Usuarios> usuarioslist;
@@ -157,6 +158,7 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
         if (id == R.id.bLoggin){
             if (!eUser.getText().toString().isEmpty()& !ePassword.getText().toString().isEmpty()) {
                 iniciarsesion(eUser.getText().toString(), ePassword.getText().toString());
+                flag = 1;
             }else {
                 Toast.makeText(this, "Llene todos los campos vacios", Toast.LENGTH_SHORT).show();
             }
@@ -257,20 +259,36 @@ public class LogginActivity extends AppCompatActivity implements GoogleApiClient
                         usuarioslist.clear();
                         nombrelist.clear();
                         Log.d("value", "Clear");
+
                         if(dataSnapshot.exists()){
 
                             Log.d("Existe", "SI");
                         }else{
                             Log.d("Existe", "NO");
-                            Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
-                                    firebaseUser.getDisplayName(),
-                                    "Telefono",
-                                    firebaseUser.getEmail(),
-                                    firebaseUser.getPhotoUrl().toString());
+                            if(flag == 1) {
+
+                                Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
+                                        "nombre",
+                                        "Telefono",
+                                        firebaseUser.getEmail(),
+                                        "foto");
+                                databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+                                flag = 0;
+                            }else{
+                                Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
+                                        firebaseUser.getDisplayName(),
+                                        "Telefono",
+                                        firebaseUser.getEmail(),
+                                        firebaseUser.getPhotoUrl().toString());
+                                databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+
+                            }
+
+
 
                             Log.d("button", "Entra al boton marca 1 ");
 
-                            databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+
                         }
                     }
 

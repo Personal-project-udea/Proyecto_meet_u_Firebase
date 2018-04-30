@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,11 +35,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.martinez.steven.practica_2.model.Eventos;
 import com.martinez.steven.practica_2.model.Usuarios;
 import com.squareup.picasso.Picasso;
 
@@ -45,6 +52,7 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +79,18 @@ public class PerfilFragment extends Fragment {
     View view;
 
     private String urlFoto = "No ha cargado", id;
+
+
+    //---------------------------usuarios
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapterUsuarios;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Usuarios> userslist;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference1;
+
+    //-------------------------------------
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -152,6 +172,49 @@ public class PerfilFragment extends Fragment {
                         });
             }
         });
+
+
+        //--------------usuarios
+
+        Log.d("value", "oncreate 3");
+        recyclerView = view.findViewById(R.id.vRecycler);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        userslist = new ArrayList<Usuarios>();
+        Log.d("value", "oncreate 4");
+        adapterUsuarios = new Adapter_usuarios(userslist, R.layout.users_card, getActivity());
+
+        recyclerView.setAdapter(adapterUsuarios);
+        Log.d("value", "oncreate 5");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference();
+        Log.d("value", "oncreate 5.4");
+        databaseReference1.child("Usuarios").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("value", "oncreate 5.5");
+                userslist.clear();
+                if (dataSnapshot.exists()){
+                    Log.d("value", "oncreate 6");
+                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        Usuarios usuarios = snapshot.getValue(Usuarios.class);
+
+                        userslist.add(usuarios);
+
+
+                    }
+                    adapterUsuarios.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //---------------------
 
         return view;
 
