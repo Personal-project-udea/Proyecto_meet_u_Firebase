@@ -327,7 +327,8 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                     }
                 }
             });
-        }else if(LoginManager.getInstance() != null){
+        }
+        if(LoginManager.getInstance() != null){
             LoginManager.getInstance().logOut();
             goLoginActivity();
         }else{

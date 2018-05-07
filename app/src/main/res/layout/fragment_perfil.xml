@@ -85,7 +85,7 @@
                 android:text="@string/Guardar"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_margin="10dp"
                 android:textStyle="bold"
                 android:id="@+id/bSave"/>
@@ -98,7 +98,7 @@
                 android:text="@string/Cerrar"
                 android:textAllCaps="false"
                 android:textSize="18sp"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:layout_margin="10dp"
                 android:textStyle="bold"
                 android:id="@+id/bCerrar"/>
@@ -107,7 +107,8 @@
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/vRecycler">
+            android:id="@+id/vRecycler"
+            android:layout_marginBottom="60dp">
 
         </android.support.v7.widget.RecyclerView>
 
