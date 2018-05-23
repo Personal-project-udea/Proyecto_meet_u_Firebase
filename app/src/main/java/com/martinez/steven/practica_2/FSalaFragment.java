@@ -31,6 +31,7 @@ public class FSalaFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
+    private int select = 0;
 
 
     public FSalaFragment() {
@@ -51,7 +52,7 @@ public class FSalaFragment extends Fragment {
 
         eventoslist = new ArrayList<>();
 
-        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity());
+        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity(), select);
 
         recyclerView.setAdapter(adapterEventos);
 

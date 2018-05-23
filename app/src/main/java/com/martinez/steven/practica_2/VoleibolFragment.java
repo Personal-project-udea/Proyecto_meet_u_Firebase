@@ -31,6 +31,7 @@ public class VoleibolFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
+    private int select = 0;
 
     public VoleibolFragment() {
         // Required empty public constructor
@@ -50,7 +51,7 @@ public class VoleibolFragment extends Fragment {
 
         eventoslist = new ArrayList<>();
 
-        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity());
+        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity(), select);
 
         recyclerView.setAdapter(adapterEventos);
 

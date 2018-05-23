@@ -20,6 +20,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
     private ArrayList<Eventos> eventosList;
     private int resource;
     private Activity activity;
+    private int select;
 
     private Context context;
 
@@ -31,10 +32,11 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
         this.context = context;
     }
 
-    public Adapter_eventos(ArrayList<Eventos> eventosList, int resource, Activity activity) {
+    public Adapter_eventos(ArrayList<Eventos> eventosList, int resource, Activity activity, int selector) {
         this.eventosList = eventosList;
         this.resource = resource;
         this.activity = activity;
+        this.select = selector;
     }
 
     @Override
@@ -45,9 +47,13 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.getContext().startActivity(new Intent(view.getContext() ,InfoEventActivity.class));
-                Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
-
+                if (select == 0) {
+                    view.getContext().startActivity(new Intent(view.getContext(), InfoEventActivity.class));
+                    Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
+                }else if (select == 1){
+                    view.getContext().startActivity(new Intent(view.getContext(), EditEventActivity.class));
+                    Toast.makeText(activity, "abre actividad con detalle editar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

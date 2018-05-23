@@ -44,7 +44,8 @@ public class EditFragment extends Fragment {
     private ArrayList<String> eventosuserslist;
 
     private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase;;
+    private FirebaseDatabase firebaseDatabase;
+    private int select = 1;
 
     public EditFragment() {
         // Required empty public constructor
@@ -70,7 +71,7 @@ public class EditFragment extends Fragment {
         eventoslist = new ArrayList<>();
         eventosuserslist = new ArrayList<>();
 
-        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity());
+        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity(), select);
 
         recyclerView.setAdapter(adapterEventos);
 

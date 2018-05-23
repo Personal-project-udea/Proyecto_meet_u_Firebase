@@ -41,6 +41,7 @@ public class CheckFragment extends Fragment {
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
     public ArrayList<String> lista;
+    private int select = 0;
 
     public CheckFragment() {
         // Required empty public constructor
@@ -65,7 +66,7 @@ public class CheckFragment extends Fragment {
         eventoslist = new ArrayList<>();
         eventosuserslist = new ArrayList<>();
 
-        adapterEvenUsers = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity());
+        adapterEvenUsers = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity(), select);
 
         recyclerView.setAdapter(adapterEvenUsers);
 

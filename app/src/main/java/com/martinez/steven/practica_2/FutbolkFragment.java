@@ -41,6 +41,7 @@ public class FutbolkFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
+    private int select = 0;
 
     public FutbolkFragment() {
         // Required empty public constructor
@@ -60,7 +61,7 @@ public class FutbolkFragment extends Fragment {
 
         eventoslist = new ArrayList<>();
 
-        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity());
+        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity(), select);
 
         recyclerView.setAdapter(adapterEventos);
 
