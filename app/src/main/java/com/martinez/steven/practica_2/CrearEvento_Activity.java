@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,12 +16,15 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.martinez.steven.practica_2.model.Eventos;
+import com.martinez.steven.practica_2.model.EventosUsuarios;
 
 import java.util.Calendar;
 
@@ -30,6 +34,11 @@ public class CrearEvento_Activity extends AppCompatActivity {
     Calendar mCurrentDate;
     Button bCrearEvento;
     DatabaseReference databaseReference;
+    private FirebaseAuth firebaseAuth;
+
+    Bundle extras;
+    String id_user;
+
 
 
     @Override
@@ -48,6 +57,12 @@ public class CrearEvento_Activity extends AppCompatActivity {
         selectHora();
         selectFecha();
         selectCancha();
+
+        extras = getIntent().getExtras();
+
+        if(extras != null) {
+            id_user = extras.getString("id");
+        }
 
         FirebaseDatabase.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -182,7 +197,16 @@ public class CrearEvento_Activity extends AppCompatActivity {
                     eHora.getText().toString());
 
             databaseReference.child("Eventos").child(nuevoEvento.getId()).setValue(nuevoEvento);
+            Log.d("paso", "1 "+id_user);
+            EventosUsuarios evenusers = new EventosUsuarios(databaseReference.push().getKey(),
+                    id_user,
+                    nuevoEvento.getId(),
+                    id_user
+                    );
 
+            Log.d("paso", "3");
+            databaseReference.child("EventosUsuarios").child(evenusers.getId()).setValue(evenusers);
+            Log.d("paso", "2");
             Toast.makeText(this, "Evento creado", Toast.LENGTH_SHORT).show();
 
             finish();

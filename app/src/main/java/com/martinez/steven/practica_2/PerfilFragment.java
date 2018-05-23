@@ -80,18 +80,6 @@ public class PerfilFragment extends Fragment {
 
     private String urlFoto = "No ha cargado", id;
 
-
-    //---------------------------usuarios
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapterUsuarios;
-    private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Usuarios> userslist;
-
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference1;
-
-    //-------------------------------------
-
     public PerfilFragment() {
         // Required empty public constructor
     }
@@ -103,7 +91,6 @@ public class PerfilFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_perfil, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
-
         eUsuario = view.findViewById(R.id.eUsuario);
         eCorreo = view.findViewById(R.id.eCorreo);
         iFoto = view.findViewById(R.id.iFoto);
@@ -111,7 +98,6 @@ public class PerfilFragment extends Fragment {
 
         FirebaseDatabase.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        Log.d("value", "oncreate 2");
 
         Bundle bundle = getArguments();
         eCorreo.setEnabled(false);
@@ -123,13 +109,10 @@ public class PerfilFragment extends Fragment {
         id = bundle.getString("id");
         Picasso.get().load(bundle.getString("foto")).into(iFoto);
 
-
         Button button2 = (Button) view.findViewById(R.id.bCerrar);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.d("click", "boton cerrar");
                 ((PrincipalActivity) getActivity()).OnClickButton_Cerrar(view);
             }
         });
@@ -152,69 +135,21 @@ public class PerfilFragment extends Fragment {
             public void onClick(View view) {
 
 
-                Log.d("click", "boton guardar");
-
                 FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
                 StorageReference storageReference = firebaseStorage.getReference();
-                Log.d("click", "boton1");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream(); //comprimir
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] data = baos.toByteArray();
-                Log.d("click", "boton2");
                 storageReference.child("Usuarios").child(databaseReference.push().getKey()).putBytes(data)
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Log.d("click", "boton3");
                                 urlFoto = taskSnapshot.getDownloadUrl().toString();
                                 savedatabase();
                             }
                         });
             }
         });
-
-
-        //--------------usuarios
-
-        Log.d("value", "oncreate 3");
-        recyclerView = view.findViewById(R.id.vRecycler);
-        recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
-        userslist = new ArrayList<Usuarios>();
-        Log.d("value", "oncreate 4");
-        adapterUsuarios = new Adapter_usuarios(userslist, R.layout.users_card, getActivity());
-
-        recyclerView.setAdapter(adapterUsuarios);
-        Log.d("value", "oncreate 5");
-        databaseReference1 = FirebaseDatabase.getInstance().getReference();
-        Log.d("value", "oncreate 5.4");
-        databaseReference1.child("Usuarios").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("value", "oncreate 5.5");
-                userslist.clear();
-                if (dataSnapshot.exists()){
-                    Log.d("value", "oncreate 6");
-                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
-                        Usuarios usuarios = snapshot.getValue(Usuarios.class);
-
-                        userslist.add(usuarios);
-
-
-                    }
-                    adapterUsuarios.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        //---------------------
 
         return view;
 
@@ -229,11 +164,9 @@ public class PerfilFragment extends Fragment {
                 Toast.makeText(getActivity(),"error cargando imagen", Toast.LENGTH_SHORT).show();
 
             }else{
-                Log.d("click", "imagen");
                 Uri imagen = data.getData();
                 try {
                     button.setEnabled(true);
-                    Log.d("click", "imagen1");
                     InputStream is = ((PrincipalActivity) getActivity()).getContentResolver().openInputStream(imagen);
                     BufferedInputStream bis = new BufferedInputStream(is);
                     bitmap = BitmapFactory.decodeStream(bis);
@@ -246,37 +179,10 @@ public class PerfilFragment extends Fragment {
     }
 
     public void savedatabase(){
-        /*Log.d("button", "Entra al boton ");
-        Usuarios usuarios = new Usuarios(databaseReference.child("Usuarios").push().getKey(),
-                eUsuario.getText().toString(),
-                eTelefono.getText().toString(),
-                eCorreo.getText().toString(),
-                urlFoto);
-        Log.d("button", "Entra al boton marca 1 ");
 
-        //databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
-        //Log.d("button", "Entra al boton marca 2 ");
-
-
-        databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d("Entre1", "OK");
-
-                } else {
-                    Log.d("Entre2", "OK");
-                    Log.d("Save:", task.getException().toString());
-                }
-            }
-        });
-        Log.d("Entre3", "OK");
-
-        */
         databaseReference.child("Usuarios").child(id).child("nombre").setValue(eUsuario.getText().toString());
         databaseReference.child("Usuarios").child(id).child("telefono").setValue(eTelefono.getText().toString());
         databaseReference.child("Usuarios").child(id).child("foto").setValue(urlFoto);
-        Log.d("Enter4", "ok4");
 
 
 

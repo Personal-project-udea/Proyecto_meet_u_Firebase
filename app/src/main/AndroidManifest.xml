@@ -59,6 +59,7 @@
             android:label="@string/title_activity_prueba"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".CrearEvento_Activity" />
+        <activity android:name=".InfoEventActivity"></activity>
     </application>
 
 </manifest>

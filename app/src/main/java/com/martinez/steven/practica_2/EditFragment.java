@@ -8,26 +8,43 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.martinez.steven.practica_2.model.Eventos;
+import com.martinez.steven.practica_2.model.EventosUsuarios;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EditFragment extends Fragment implements OnMapReadyCallback {
+public class EditFragment extends Fragment {
 
-    private GoogleMap mMap;
-    private MapView mapView;
+    private android.support.v7.widget.RecyclerView recyclerView;
+    private RecyclerView.Adapter adapterEventos;
+    private RecyclerView.LayoutManager layoutManager;
+    private ArrayList<Eventos> eventoslist;
+    private ArrayList<String> eventosuserslist;
+
+    private DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;;
 
     public EditFragment() {
         // Required empty public constructor
@@ -45,67 +62,95 @@ public class EditFragment extends Fragment implements OnMapReadyCallback {
         ((PrincipalActivity) getActivity())
                 .setActionBarTitle(toolbar);
 
-        mapView = view.findViewById(R.id.map);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
+        recyclerView = view.findViewById(R.id.vRecycler);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new android.support.v7.widget.LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        eventoslist = new ArrayList<>();
+        eventosuserslist = new ArrayList<>();
+
+        adapterEventos = new Adapter_eventos(eventoslist, R.layout.cardview_default, getActivity());
+
+        recyclerView.setAdapter(adapterEventos);
+
+        //buscando los eventos donde el usuario es creador
+
+        final ArrayList lista = eventosEdit();
+
+        try
+        {
+            Thread.sleep(100);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        databaseReference.child("Eventos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                eventoslist.clear();
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Eventos eventos = snapshot.getValue(Eventos.class);
+                        for (int i = 0; i < lista.size(); i++) {
+                            if (eventos.getId().equals(lista.get(i))) {
+                                eventoslist.add(eventos);
+                            }
+                        }
+                    }
+                    adapterEventos.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
 
         return view;
 
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
+    public ArrayList eventosEdit(){
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        FirebaseAuth firebaseAuth;
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        final String id1 = firebaseUser.getUid();
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
+        databaseReference.child("EventosUsuarios").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                eventosuserslist.clear();
+                if (dataSnapshot.exists()){
+                    for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                        EventosUsuarios eventosusers = snapshot.getValue(EventosUsuarios.class);
+                        if (eventosusers.getCreadorid().equals(id1)){
+                            String eventid = eventosusers.getEventoid();
+                            eventosuserslist.add(eventid);
+                        }
+                    }
+                }
+            }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
-    }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+            }
+        });
 
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        mMap.setMyLocationEnabled(true);
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
-
-        LatLng udea = new LatLng(6.2672957,-75.5688958);
-        mMap.addMarker(new MarkerOptions().position(udea).title("Universidad de Antioquia)").snippet("Alma Mater").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(udea,16));
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
+        return eventosuserslist;
     }
 }
 

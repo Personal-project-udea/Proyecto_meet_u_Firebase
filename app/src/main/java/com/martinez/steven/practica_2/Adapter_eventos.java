@@ -1,6 +1,8 @@
 package com.martinez.steven.practica_2;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +21,14 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
     private int resource;
     private Activity activity;
 
+    private Context context;
+
     public Adapter_eventos(ArrayList<Eventos> eventosList) {
         this.eventosList = eventosList;
+    }
+
+    public Adapter_eventos(Context context) {
+        this.context = context;
     }
 
     public Adapter_eventos(ArrayList<Eventos> eventosList, int resource, Activity activity) {
@@ -37,6 +45,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.getContext().startActivity(new Intent(view.getContext() ,InfoEventActivity.class));
                 Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
 
             }

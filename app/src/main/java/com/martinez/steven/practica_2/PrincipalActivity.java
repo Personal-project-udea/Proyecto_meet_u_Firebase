@@ -44,7 +44,7 @@ import java.util.logging.LogManager;
 
 public class PrincipalActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    String user = "", pwd = "", email = "";
+    String user = "", pwd = "", email = "", id_user;
     Bundle extras;
 
     private FirebaseAuth firebaseAuth;
@@ -59,6 +59,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
     private PagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     public Bundle arg = new Bundle();
+
 
     //---------variables perfil------
 
@@ -155,6 +156,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
                                         arg.putString("telefono", usuarios.getTelefono());
                                         arg.putString("foto", usuarios.getFoto());
                                         arg.putString("id", usuarios.getId());
+                                        id_user = usuarios.getId();
                                     }
                                 }
                             }
@@ -206,7 +208,12 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
         int id = item.getItemId();
 
         if (id == R.id.mCrearEvento){
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            String id1 = firebaseUser.getUid();
+            Toast.makeText(this, "id: " + id1, Toast.LENGTH_SHORT ).show();
+
             Intent intent = new Intent(PrincipalActivity.this, CrearEvento_Activity.class);
+            intent.putExtra("id", id1 );
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

@@ -29,18 +29,14 @@
 
     </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Edit"
-        android:gravity="center"/>
 
-    <com.google.android.gms.maps.MapView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        android:layout_marginBottom="60dp">
+        android:layout_height="wrap_content"
+        android:id="@+id/vRecycler"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="60dp">
 
-    </com.google.android.gms.maps.MapView>
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.design.widget.CoordinatorLayout>
