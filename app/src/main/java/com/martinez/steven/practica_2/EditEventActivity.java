@@ -2,6 +2,8 @@ package com.martinez.steven.practica_2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +23,8 @@ import java.util.ArrayList;
 
 public class EditEventActivity extends AppCompatActivity {
 
-    private EditText tFecha, tLugar, tDescripcion;
-    private TextView tNumeroAsistentes, tAnfitrion;
+    private EditText tFecha, tDescripcion, tPunto;
+    private TextView tNumeroAsistentes, tAnfitrion, tLugar;
     private ImageView iDeporte;
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
@@ -31,6 +33,7 @@ public class EditEventActivity extends AppCompatActivity {
     private String id;
     private Eventos evento;
     private EventosUsuarios eventousers;
+    private Button bGuardarE;
 
 
 
@@ -50,6 +53,8 @@ public class EditEventActivity extends AppCompatActivity {
         tNumeroAsistentes = findViewById(R.id.tNumeroAsistentes);
         tAnfitrion = findViewById(R.id.tAnfitrion);
         iDeporte = findViewById(R.id.iDeporte);
+        bGuardarE  = findViewById(R.id.bGuardarEvento);
+        tPunto = findViewById(R.id.ePunto);
 
         listAsistent = new ArrayList<>();
 
@@ -69,6 +74,7 @@ public class EditEventActivity extends AppCompatActivity {
                             tDescripcion.setText(evento.getDescripcion());
                             tFecha.setText((evento.getFecha() + ", " + evento.getHora()));
                             tLugar.setText(evento.getCancha());
+                            tPunto.setText(evento.getPuntoEncuentro());
                             if (evento.getDeporte().equals("Fútbol")) {
                                 iDeporte.setImageResource(R.drawable.futbol);
                             } else if (evento.getDeporte().equals("Básquetbol")) {
@@ -141,19 +147,21 @@ public class EditEventActivity extends AppCompatActivity {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
+    public void OnClickButton_UpdateEvent(View view) {
+
+        if (!tDescripcion.getText().toString().isEmpty() && !tFecha.getText().toString().isEmpty() && !tLugar.getText().toString().isEmpty()){
+
+            databaseReference.child("Eventos").child(id).child("descripcion").setValue(tDescripcion.getText().toString());
+            databaseReference.child("Eventos").child(id).child("cancha").setValue(tLugar.getText().toString());
+            databaseReference.child("Eventos").child(id).child("puntoEncuentro").setValue(tPunto.getText().toString());
+
+            String fecha[] = tFecha.getText().toString().split(",");
+            databaseReference.child("Eventos").child(id).child("fecha").setValue(fecha[0]);
+            databaseReference.child("Eventos").child(id).child("hora").setValue(fecha[1]);
+            finish();
+
+        }
+    }
 }
