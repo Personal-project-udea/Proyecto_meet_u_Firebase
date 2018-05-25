@@ -3,6 +3,7 @@ package com.martinez.steven.practica_2;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,8 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
     private int resource;
     private Activity activity;
     private int select;
+    private int posev;
+    private Bundle extras;
 
     private Context context;
 
@@ -48,10 +51,16 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
             @Override
             public void onClick(View view) {
                 if (select == 0) {
-                    view.getContext().startActivity(new Intent(view.getContext(), InfoEventActivity.class));
+                    Eventos eventsel = eventosList.get(posev);
+                    Intent intent = new Intent(view.getContext(), InfoEventActivity.class);
+                    intent.putExtra("id", eventsel.getId());
+                    view.getContext().startActivity(intent);
                     Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
                 }else if (select == 1){
-                    view.getContext().startActivity(new Intent(view.getContext(), EditEventActivity.class));
+                    Eventos eventsel = eventosList.get(posev);
+                    Intent intent = new Intent(view.getContext(), EditEventActivity.class);
+                    intent.putExtra("id", eventsel.getId());
+                    view.getContext().startActivity(intent);
                     Toast.makeText(activity, "abre actividad con detalle editar", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -62,6 +71,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
 
     @Override
     public void onBindViewHolder(EventosViewholdes holder, int position) {
+        posev = position;
         Eventos info_evento = eventosList.get(position);
         holder.binInfoevento(info_evento, activity);
 

@@ -45,6 +45,7 @@ public class EditFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
+    public ArrayList<String> lista;
     private int select = 1;
 
     public EditFragment() {
@@ -59,6 +60,9 @@ public class EditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_edit, container, false);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
+
+        lista = new ArrayList<>();
+        lista.clear();
 
         ((PrincipalActivity) getActivity())
                 .setActionBarTitle(toolbar);
@@ -77,11 +81,11 @@ public class EditFragment extends Fragment {
 
         //buscando los eventos donde el usuario es creador
 
-        final ArrayList lista = eventosEdit();
+        lista = eventosEdit();
 
         try
         {
-            Thread.sleep(100);
+            Thread.sleep(200);
         }
         catch(InterruptedException ex)
         {
@@ -91,29 +95,8 @@ public class EditFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-        databaseReference.child("Eventos").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                eventoslist.clear();
+        mostrarEvento();
 
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Eventos eventos = snapshot.getValue(Eventos.class);
-                        for (int i = 0; i < lista.size(); i++) {
-                            if (eventos.getId().equals(lista.get(i))) {
-                                eventoslist.add(eventos);
-                            }
-                        }
-                    }
-                    adapterEventos.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
 
@@ -152,6 +135,36 @@ public class EditFragment extends Fragment {
         });
 
         return eventosuserslist;
+    }
+
+    public void mostrarEvento(){
+        databaseReference.child("Eventos").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                eventoslist.clear();
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Eventos eventos = snapshot.getValue(Eventos.class);
+                        for (int i = 0; i < lista.size(); i++) {
+                            if (eventos.getId().equals(lista.get(i))) {
+                                eventoslist.add(eventos);
+                            }
+                        }
+                    }
+                    adapterEventos.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public interface OnDataPass {
+        public void onDataPass(String data);
     }
 }
 

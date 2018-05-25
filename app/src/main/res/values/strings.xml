@@ -137,4 +137,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="cancha_deportiva">Cancha deportiva</string>
+    <string name="numeroAsistentes">Asistiran al evento :</string>
 </resources>
