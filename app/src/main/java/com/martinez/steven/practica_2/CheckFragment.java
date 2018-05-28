@@ -150,10 +150,12 @@ public class CheckFragment extends Fragment {
                             Log.d("paso", "4"+ eventos.getId()+lista.get(i));
                             if (eventos.getId().equals(lista.get(i))) {
                                 Log.d("paso", "5");
+                                Log.d("paso", "6"+eventos.getId());
                                 eventoslist.add(eventos);
                             }
                         }
                     }
+                    Log.d("paso", "6"+String.valueOf(eventoslist));
                     adapterEvenUsers.notifyDataSetChanged();
                 }
             }

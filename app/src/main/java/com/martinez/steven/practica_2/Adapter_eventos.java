@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (select == 0) {
+                /*if (select == 0) {
                     Eventos eventsel = eventosList.get(posev);
                     Intent intent = new Intent(view.getContext(), InfoEventActivity.class);
                     intent.putExtra("id", eventsel.getId());
@@ -62,7 +63,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
                     intent.putExtra("id", eventsel.getId());
                     view.getContext().startActivity(intent);
                     Toast.makeText(activity, "abre actividad con detalle editar", Toast.LENGTH_SHORT).show();
-                }
+                }*/
             }
         });
 
@@ -71,9 +72,25 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
 
     @Override
     public void onBindViewHolder(EventosViewholdes holder, int position) {
-        posev = position;
-        Eventos info_evento = eventosList.get(position);
+        final Eventos info_evento = eventosList.get(position);
         holder.binInfoevento(info_evento, activity);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (select == 0) {
+                    Intent intent = new Intent(view.getContext(), InfoEventActivity.class);
+                    intent.putExtra("id", info_evento.getId());
+                    view.getContext().startActivity(intent);
+                    Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
+                    Log.d("paso", "evento id: "+ info_evento.getId());
+                }else if (select == 1){
+                    Intent intent = new Intent(view.getContext(), EditEventActivity.class);
+                    intent.putExtra("id", info_evento.getId());
+                    view.getContext().startActivity(intent);
+                    Toast.makeText(activity, "abre actividad con detalle editar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
