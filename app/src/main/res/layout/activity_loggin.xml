@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/colorPrimary"
-        android:padding="15dp">
+        android:padding="10dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,9 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="15dp"
-        android:paddingHorizontal="15dp"
-        android:paddingTop="40dp">
+        android:padding="15dp">
 
         <EditText
             android:id="@+id/eUser"
@@ -60,7 +58,8 @@
             android:layout_gravity="center"
             android:textSize="18sp"
             android:textStyle="italic"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,7 +99,6 @@
                 android:textStyle="bold"
                 android:onClick="OnClickButton_Loggin"
                 android:id="@+id/bLoggin"
-                android:layout_alignStart="@id/bRegisto"
                 />
             <Button
                 android:background="@drawable/rectangulos_redondos"

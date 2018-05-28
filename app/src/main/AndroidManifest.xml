@@ -22,10 +22,13 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -37,7 +40,8 @@
         </activity>
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,21 +50,29 @@
         </activity>
         <activity
             android:name=".LogginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RegistroActivity"
-            android:label="@string/Registro" />
+            android:label="@string/Registro"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PrincipalActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PerfilActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PerfilActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PruebaActivity"
             android:label="@string/title_activity_prueba"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CrearEvento_Activity" />
-        <activity android:name=".InfoEventActivity" />
-        <activity android:name=".EditEventActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CrearEvento_Activity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".InfoEventActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EditEventActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
