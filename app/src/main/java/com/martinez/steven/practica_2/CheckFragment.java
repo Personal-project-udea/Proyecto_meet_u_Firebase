@@ -74,7 +74,7 @@ public class CheckFragment extends Fragment {
 
         try
         {
-            Thread.sleep(100);
+            Thread.sleep(300);
         }
         catch(InterruptedException ex)
         {
@@ -85,7 +85,9 @@ public class CheckFragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        adapterEvenUsers.notifyDataSetChanged();
         mostrarEvento();
+        adapterEvenUsers.notifyDataSetChanged();
 
         return view;
 
