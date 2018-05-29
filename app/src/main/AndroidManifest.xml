@@ -60,8 +60,6 @@
             android:name=".PrincipalActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PerfilActivity"
-            android:screenOrientation="portrait"/>
         <activity
             android:name=".PruebaActivity"
             android:label="@string/title_activity_prueba"

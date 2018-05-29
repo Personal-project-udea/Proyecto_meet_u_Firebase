@@ -119,49 +119,54 @@ public class RegistroActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference.child("Usuarios").child(firebaseUser.getUid())
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        usuarioslist.clear();
-                        nombrelist.clear();
-                        Log.d("value", "Clear");
-                        if(dataSnapshot.exists()){
+        if (firebaseUser != null) {
+            String currentUserID = firebaseUser.getUid();
 
-                            Log.d("Existe", "SI");
-                        }else{
-                            Log.d("Existe", "NO");
-                            Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
-                                    firebaseUser.getDisplayName(),
-                                    firebaseUser.getPhoneNumber(),
-                                    firebaseUser.getEmail(),
-                                    "url photo");
+            databaseReference.child("Usuarios").child(currentUserID)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            usuarioslist.clear();
+                            nombrelist.clear();
+                            Log.d("value", "Clear");
+                            if (dataSnapshot.exists()) {
 
-                            Log.d("button", "Entra al boton marca 1 ");
+                                Log.d("Existe", "SI");
+                            } else {
+                                Log.d("Existe", "NO");
+                                Usuarios usuarios = new Usuarios(firebaseUser.getUid(),
+                                        firebaseUser.getDisplayName(),
+                                        firebaseUser.getPhoneNumber(),
+                                        firebaseUser.getEmail(),
+                                        "url photo");
 
-                            databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+                                Log.d("button", "Entra al boton marca 1 ");
+
+                                databaseReference.child("Usuarios").child(usuarios.getId()).setValue(usuarios);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+        }
+
     }
 
     private void crearCuenta(String email, String pass) {
         firebaseAuth.createUserWithEmailAndPassword(email, pass).
                 addOnCompleteListener(RegistroActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(RegistroActivity.this, "Cuenta Creada", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(RegistroActivity.this, "Error al crear", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(RegistroActivity.this, "Cuenta Creada", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RegistroActivity.this, "Error al crear", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     @Override
