@@ -122,8 +122,14 @@ public class InfoEventActivity extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                         Usuarios user = snapshot.getValue(Usuarios.class);
-                        if (user.getId().equals(eventosusers.getCreadorid())){
-                            tAnfitrion.setText(user.getNombre());
+                        if (user != null) {
+                            String currentUserID = user.getId();
+                            if(eventosusers !=null) {
+                                String creadorid = eventosusers.getCreadorid();
+                                if (currentUserID.equals(creadorid)) {
+                                    tAnfitrion.setText(user.getNombre());
+                                }
+                            }
                         }
                     }
                 }
