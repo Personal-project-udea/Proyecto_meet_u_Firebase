@@ -23,13 +23,14 @@
 
        <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            android:paddingTop="10dp"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="70dp"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name">
+            app:title="@string/app_name"
+           android:layout_gravity="center">
 
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout

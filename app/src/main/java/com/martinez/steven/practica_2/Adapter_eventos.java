@@ -81,13 +81,13 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
                     Intent intent = new Intent(view.getContext(), InfoEventActivity.class);
                     intent.putExtra("id", info_evento.getId());
                     view.getContext().startActivity(intent);
-                    Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(activity, "abre actividad con detalle", Toast.LENGTH_SHORT).show();
                     Log.d("paso", "evento id: "+ info_evento.getId());
                 }else if (select == 1){
                     Intent intent = new Intent(view.getContext(), EditEventActivity.class);
                     intent.putExtra("id", info_evento.getId());
                     view.getContext().startActivity(intent);
-                    Toast.makeText(activity, "abre actividad con detalle editar", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(activity, "abre actividad con detalle editar", Toast.LENGTH_SHORT).show();
                 }
             }
         });

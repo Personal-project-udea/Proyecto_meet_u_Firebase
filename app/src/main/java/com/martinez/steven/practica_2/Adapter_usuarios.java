@@ -37,7 +37,7 @@ public class Adapter_usuarios extends RecyclerView.Adapter<Adapter_usuarios.Usua
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity, "Usuario", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(activity, "Usuario", Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -1,5 +1,6 @@
 package com.martinez.steven.practica_2;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -74,6 +75,9 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
 
+
+
+
         //inicializando variables perfil---
 
         eUsuario = findViewById(R.id.eUsuario);
@@ -140,7 +144,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if(firebaseUser != null){
-                    Toast.makeText(PrincipalActivity.this, "Usuario logeado"+firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PrincipalActivity.this, "Usuario logeado"+firebaseUser.getDisplayName(), Toast.LENGTH_SHORT).show();
                     Log.d("FirebaseUser", "Usuario Logeado: "+firebaseUser.getDisplayName());
 
                     databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -210,11 +214,13 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
         if (id == R.id.mCrearEvento){
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             String id1 = firebaseUser.getUid();
-            Toast.makeText(this, "id: " + id1, Toast.LENGTH_SHORT ).show();
+            //Toast.makeText(this, "id: " + id1, Toast.LENGTH_SHORT ).show();
 
             Intent intent = new Intent(PrincipalActivity.this, CrearEvento_Activity.class);
             intent.putExtra("id", id1 );
             startActivity(intent);
+        }else if (id == android.R.id.home){
+            onBackPressed();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -321,7 +327,7 @@ public class PrincipalActivity extends AppCompatActivity implements GoogleApiCli
 
 
     public void OnClickButton_Cerrar(View view) {
-        Toast.makeText(this, "Cerrar Sesión presionado", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Cerrando Sesión ", Toast.LENGTH_SHORT).show();
         firebaseAuth.signOut();
         if(Auth.GoogleSignInApi != null) {
             Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {

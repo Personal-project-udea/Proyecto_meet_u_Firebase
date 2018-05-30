@@ -36,7 +36,7 @@ public class Adapter_EvenUsers extends RecyclerView.Adapter<Adapter_EvenUsers.Ev
         itemview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(activity, "EvenUsers", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(activity, "EvenUsers", Toast.LENGTH_SHORT).show();
 
             }
         });
