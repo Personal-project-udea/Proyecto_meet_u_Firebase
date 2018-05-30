@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/vRecycler"
         android:layout_marginBottom="60dp"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="80dp">
 
     </android.support.v7.widget.RecyclerView>
 
