@@ -91,7 +91,7 @@ public class Adapter_eventos extends RecyclerView.Adapter<Adapter_eventos.Evento
                 }
             }
         });
-
+//asd
     }
 
     @Override
